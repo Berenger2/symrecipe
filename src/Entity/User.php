@@ -59,6 +59,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $UpdatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,7 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         
         $this->createdAt = new \DateTimeImmutable();
-        // $this->updatedAt = new \DateTimeImmutable();
+         $this->updatedAt = new \DateTimeImmutable();
 
     } 
 
@@ -191,6 +194,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->UpdatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $UpdatedAt): self
+    {
+        $this->UpdatedAt = $UpdatedAt;
 
         return $this;
     }

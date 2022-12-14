@@ -95,8 +95,8 @@ function editPassword(User $user, Request $request, EntityManagerInterface $mana
 
     if ($form->isSubmitted() && $form->isValid()) {
         if ($hasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
-            $pass = $hasher->hashPassword($user, $form->getData()['newPassword']);
-            $user->setPassword($pass);
+             $user->setUpdatedAt(new \DateTimeImmutable());
+            $user->setPlainPassword($form->getData()['newPassword']);
             $manager->persist($user);
             $manager->flush();
             $this->addFlash(
