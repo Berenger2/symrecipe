@@ -62,6 +62,7 @@ function new (Request $request, EntityManagerInterface $manager): Response {
 
 #[Route('/recipe/edition/{id}', name:'recipe.edit', methods:['GET', 'POST'])]
 
+ 
 function edit(Recipe $recipe, Request $request, EntityManagerInterface $manager): Response
     {
 

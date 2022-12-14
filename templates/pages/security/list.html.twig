@@ -1,0 +1,71 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block title %}SymRecipe::Utilisateurs
+{% endblock  %}
+{% block body %}
+<div class="container mt-4">
+
+
+	<h1>Mes utilisateurs</h1>
+	<a href="{{path('recipe.new')}}" class="btn btn-primary">Créer un utilisateur</a>
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success mt-4">
+
+			{{ message }}
+		</div>
+	{% endfor %}
+
+
+	{% if users.items is same as ([]) %}
+
+		<h4>
+			Vous n'avez pas d'utilisateur
+		</h4>
+
+	{% else %} 
+		<div class="count my-4">
+			<h4>
+				Il y a
+				{{ users.getTotalItemCount }}
+				au total</h4>
+		</div>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">N°</th>
+					<th scope="col">Nom / Prénom</th>
+					<th scope="col">Pseaudo</th>
+					<th scope="col">Adresse email</th>
+					<th scope="col">Date de création</th>
+					<th scope="col">Action</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr class="table-light">
+						<th scope="row">{{ user.id }}</th>
+						<td>{{ user.fullName }}</td>
+
+						<td>
+							{% if user.pseudo is null %}
+								Non renseigné
+							{% else %}
+								{{ user.pseudo }}
+
+							{% endif %}
+						</td>
+						<td>
+							{{ user.email }}</td>
+						<td>{{ user.createdAt|date("d M Y") }}</td>
+						<td>
+							<a href="{{path('security.edit',{id:user.id})}}" class="btn btn-info">Edition</a>
+							<a href="{{path('recipe.delete',{id:user.id})}}" aria-disabled="true" class="btn btn-danger disabled">Suppression</a>
+						</td>
+					</tr>
+				</tbody>
+			</tbody>
+		</td>
+	</tr>
+{% endfor %}</tbody></table><div class="d-flex justify-content-center mt-4"><div class="navigation">{{ knp_pagination_render(users) }}</div></div>{% endif %}</div>{% endblock  %}
